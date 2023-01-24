@@ -1,0 +1,15 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: self-hosted
+    steps: 
+      - run: yarn install
+      - run: cd ios && pod install
+      - run: xcodebuild -workspace RnCiCd.xcworkspace -scheme RnCiCd -archivePath RnCiCd.xcarchive archive
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ipa-archive
+          path: RnCiCd.xcarchive
