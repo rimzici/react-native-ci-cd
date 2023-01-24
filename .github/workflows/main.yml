@@ -5,6 +5,8 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: self-hosted
     steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - run: yarn install
       - run: cd ios && pod install
       - run: xcodebuild -workspace RnCiCd.xcworkspace -scheme RnCiCd -archivePath RnCiCd.xcarchive archive
