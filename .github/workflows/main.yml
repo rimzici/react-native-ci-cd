@@ -3,15 +3,17 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
   Explore-GitHub-Actions:
-    runs-on: self-hosted
+    runs-on: macos-latest
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v3
       - run: yarn install --silent
       - run: cd ios && pod install
-      - run: cd ios && ls && xcodebuild -workspace RnCiCd.xcworkspace -scheme RnCiCd -archivePath RnCiCd.xcarchive archive
+      - run: cd ios && xcodebuild -workspace RnCiCd.xcworkspace -scheme RnCiCd -archivePath RnCiCd.xcarchive archive
+      # - run: cd ios && xcodebuild -exportArchive -archivePath RnCiCd.xcarchive -exportPath ./ -exportOptionsPlist ExportOptions.plist
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ipa-archive
+          # path: ios/RnCiCd.ipa
           path: ios/RnCiCd.xcarchive
